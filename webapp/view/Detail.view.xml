@@ -1,0 +1,103 @@
+<mvc:View xmlns="sap.m" xmlns:semantic="sap.f.semantic" xmlns:mvc="sap.ui.core.mvc" controllerName="Emp_V4.Emp_V4.controller.Detail">
+
+	<semantic:SemanticPage id="detailPage" busy="{detailView>/busy}" busyIndicatorDelay="{detailView>/delay}">
+		<semantic:titleHeading>
+			<Title text="{FirstName} {LastName}" level="H2"/>
+		</semantic:titleHeading>
+		<semantic:headerContent>
+			<Label text="Details" design="Bold"/>
+				<Table id="EmplInformation" width="auto" updateFinished=".onListUpdateFinished" noDataText="{i18n>detailLineItemTableNoDataText}" busyIndicatorDelay="{detailView>/lineItemTableDelay}">
+				<items>
+							<ColumnListItem>
+								<cells>
+									<Text text="{City}"/>
+									<Text text="{Country}"/>
+									<Text text="{Address}"/>
+									<Text text="{Notes}"/>
+									<Text text="{BirthDate}"/>
+									<Text text="{HireDate}"/>
+							</cells>
+							</ColumnListItem>
+				</items>
+				
+				<columns>
+					<Column>
+						<Text text="City"/>
+					</Column>
+					<Column>
+						<Text text="Country"/>
+					</Column>
+					<Column>
+						<Text text="Address"/>
+					</Column>
+					<Column>
+						<Text text="Notes"/>
+					</Column>
+					<Column hAlign="End">
+						<Text text="BirthDate"/>
+					</Column>
+					<Column hAlign="End">
+						<Text text="HireDate"/>
+					</Column>
+				</columns>
+			
+			</Table>
+			
+			<Label text="Reporting Manager (Employee ID)" design="Bold"/>
+			<List>
+			<items>
+					<StandardListItem type ="Navigation" press="handleListItemPress"
+					title="{ReportsTo}"/>
+				</items>
+				</List>
+			
+		</semantic:headerContent>
+	
+		<semantic:content>
+			<Table id="lineItemsList" width="auto" items="{Employees1}" updateFinished=".onListUpdateFinished" noDataText="{i18n>detailLineItemTableNoDataText}" busyIndicatorDelay="{detailView>/lineItemTableDelay}">
+				<headerToolbar>
+					<Toolbar>
+						<Title id="lineItemsTitle" text="assigned Employees" titleStyle="H3" level="H3"/>
+					</Toolbar>
+				</headerToolbar>
+				<columns>
+					<Column>
+						<Text text="Full Name"/>
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true" hAlign="End">
+						<Text text="Employee ID"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem>
+						<cells>
+							<ObjectIdentifier title="{FirstName} {LastName}"/>
+							<ObjectNumber number="{EmployeeID}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+			
+		
+			
+		</semantic:content>
+		<!--Semantic ShareMenu Buttons-->
+		<semantic:sendEmailAction>
+			<semantic:SendEmailAction id="shareEmail" press=".onSendEmailPress"/>
+		</semantic:sendEmailAction>
+
+		<semantic:closeAction>
+			<semantic:CloseAction id="closeColumn" press=".onCloseDetailPress"/>
+		</semantic:closeAction>
+
+		<semantic:fullScreenAction>
+			<semantic:FullScreenAction id="enterFullScreen" visible="{= !${device>/system/phone} &amp;&amp; !${appView>/actionButtonsInfo/midColumn/fullScreen}}" press=".toggleFullScreen"/>
+		</semantic:fullScreenAction>
+		<semantic:exitFullScreenAction>
+			<semantic:ExitFullScreenAction id="exitFullScreen" visible="{= !${device>/system/phone} &amp;&amp; ${appView>/actionButtonsInfo/midColumn/fullScreen}}" press=".toggleFullScreen"/>
+		</semantic:exitFullScreenAction>
+
+	</semantic:SemanticPage>
+		
+
+</mvc:View>
